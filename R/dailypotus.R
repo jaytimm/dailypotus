@@ -1,11 +1,12 @@
-#'
+#' Get presidential timelines from wikipedia 
 #' @name dailypotus
+#' 
 #'
-generic_timeline <- function(quarters, url, pres) {
+generic_timeline <- function(qs, url, pres) {
   
-  timeline <- lapply(1:length(quarters), function(x) {
+  timeline <- lapply(1:length(qs), function(x) {
     
-    url1 <- paste0(url, '_(', quarters[x], ')')
+    url1 <- paste0(url, '_(', qs[x], ')')
     ## httr::HEAD(url1)$status_code == '404'
     tq_list <- xml2::read_html(url1)
     tq_list1 <- rvest::html_nodes(tq_list, "table")
@@ -26,7 +27,7 @@ generic_timeline <- function(quarters, url, pres) {
     
     out <- data.table::rbindlist(Filter(function(i) nrow(i) >= 3, new))
     
-    out$quarter <- allqs[x]
+    out$quarter <- qs[x]
     out <- subset(out, !grepl('\\[edit', Date))
     out$Events <- gsub('\\[[0-9]+\\]', '', out$Events) ## Citations
     out$Events <- gsub('\\[citation needed\\]', '', out$Events)
@@ -48,7 +49,7 @@ generic_timeline <- function(quarters, url, pres) {
   y$cc <-  ifelse((grepl('January_2021', y$quarter) &
                      lubridate::month(y$date) == 1), 'y', 'n')
   y[y$cc == 'y']$date <- y[y$cc == 'y']$date + 366
-  y[order(y$date),]
+  y <- y[order(y$date),]
   y[, cc:=NULL]
   
   y$weekof <- lubridate::floor_date(as.Date(y$date, "%Y-%m-%d"),
@@ -68,10 +69,8 @@ generic_timeline <- function(quarters, url, pres) {
 }
 
 
-
+#' @rdname dailypotus
 #' @export
-#' @rdname daily_wiki_trump
-#' 
 daily_wiki_trump <- function(){
   
   pres <- 'Trump'
@@ -81,15 +80,15 @@ daily_wiki_trump <- function(){
   allqs <- do.call(paste0, expand.grid(ys, qs))
   allqs45 <- gsub('2020_Q4', '2020_Q4–January_2021', allqs)
   
-  generic_timeline(quarters = allqs45, 
+  generic_timeline(qs = allqs45, 
                    url = url45, 
                    pres = 'Trump')
 }
 
 
+
+#' @rdname dailypotus
 #' @export
-#' @rdname daily_wiki_biden
-#' 
 daily_wiki_biden <- function(){
   
   url46 <- 'https://en.wikipedia.org/wiki/Timeline_of_the_Joe_Biden_presidency'
@@ -98,7 +97,7 @@ daily_wiki_biden <- function(){
   allqs46 <- sort(do.call(paste0, expand.grid(ys, qs)))
   qq <- paste0(as.numeric(format(Sys.Date(),'%Y')), '_', quarters(Sys.Date()))
   
-  generic_timeline(quarters = allqs46[1:which(allqs46 == qq)], 
+  generic_timeline(qs = allqs46[1:which(allqs46 == qq)], 
                    url = url46,
                    pres = 'Biden')
 }
