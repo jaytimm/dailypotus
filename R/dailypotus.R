@@ -65,7 +65,7 @@ generic_timeline <- function(qs, url, pres) {
                'daypres', 'date',
                'dow', 'bullet', 
                'Events')]
-  return(y2)
+  return(data.table::setDT(y2))
 }
 
 
