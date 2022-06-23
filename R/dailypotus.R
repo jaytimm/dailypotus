@@ -1,11 +1,6 @@
 #'
-#' @name uspols_wiki_timeline
-#' @import data.table
+#' @name dailypotus
 #'
-#' @export
-#' @rdname uspols_wiki_timeline
-#' 
-
 generic_timeline <- function(quarters, url, pres) {
   
   timeline <- lapply(1:length(quarters), function(x) {
@@ -74,6 +69,9 @@ generic_timeline <- function(quarters, url, pres) {
 
 
 
+#' @export
+#' @rdname daily_wiki_trump
+#' 
 daily_wiki_trump <- function(){
   
   pres <- 'Trump'
@@ -89,6 +87,9 @@ daily_wiki_trump <- function(){
 }
 
 
+#' @export
+#' @rdname daily_wiki_biden
+#' 
 daily_wiki_biden <- function(){
   
   url46 <- 'https://en.wikipedia.org/wiki/Timeline_of_the_Joe_Biden_presidency'
