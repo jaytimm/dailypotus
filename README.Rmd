@@ -6,7 +6,8 @@ output:
 
 # dailypotus
 
-A simple set of functions for scraping Wikipedia-based timelines/daily happenings of American Presidencies 45 & 46.  Daily event data have been structured for a uniform output.
+A simple set of functions for scraping Wikipedia-based timelines/daily happenings for the Trump 
+& Biden Presidencies.  For 46, function call returns an up-to-date timeline.  Daily event data have been structured for a uniform output.
 
 
 ```{r eval=FALSE}
@@ -21,7 +22,7 @@ djt <- dailypotus::daily_wiki_trump()
 ```
 
 
-> 45's last day:
+### Last day of the Trump Presidency
 
 ```{r}
 djt |>
@@ -39,7 +40,7 @@ jrb <- dailypotus::daily_wiki_biden()
 ```
 
 
-> 46's first day:
+### First day of the Biden Presidency
 
 ```{r}
 jrb |>
@@ -47,3 +48,6 @@ jrb |>
   dplyr::filter(date == min(date)) |>
   knitr::kable() 
 ```
+
+
+##

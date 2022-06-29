@@ -1,8 +1,9 @@
 # dailypotus
 
 A simple set of functions for scraping Wikipedia-based timelines/daily
-happenings of American Presidencies 45 & 46. Daily event data have been
-structured for a uniform output.
+happenings for the Trump & Biden Presidencies. For 46, function call
+returns an up-to-date timeline. Daily event data have been structured
+for a uniform output.
 
 ``` r
 devtools::install_github("jaytimm/dailypotus")
@@ -14,7 +15,7 @@ devtools::install_github("jaytimm/dailypotus")
 djt <- dailypotus::daily_wiki_trump()
 ```
 
-> 45’s last day:
+### Last day of the Trump Presidency
 
 ``` r
 djt |>
@@ -36,7 +37,7 @@ djt |>
 jrb <- dailypotus::daily_wiki_biden()
 ```
 
-> 46’s first day:
+### First day of the Biden Presidency
 
 ``` r
 jrb |>
@@ -57,3 +58,5 @@ jrb |>
 | Biden | 2021_Q1 | 2021-01-20 |      8 | The Senate confirms Avril Haines as Director of National Intelligence in a vote of 84–10.                                                                                                                                                                     |
 | Biden | 2021_Q1 | 2021-01-20 |      9 | President Biden directs the Department of Education to extend the pause on federal student loans through September 30, 2021.                                                                                                                                  |
 | Biden | 2021_Q1 | 2021-01-20 |     10 | Press Secretary Jen Psaki holds the first press briefing of the Biden administration, during which she mentions that the administration will hold briefings daily.                                                                                            |
+
+## 
